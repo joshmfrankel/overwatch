@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Node from './components/node';
-import './App.css';
+import HeroCollection from './components/HeroCollection';
+import Hero from './components/Hero';
+import './App.scss';
 
 const heroes = [
   {
@@ -21,16 +22,17 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeHeroId: null
+      currentHeroId: null
     }
   }
 
-  handleNodeClick = (id) => {
-    this.setState({ activeHeroId: id });
+  handleHeroClick = (id) => {
+    console.log(`clicked ${id}`);
+    this.setState({ currentHeroId: id });
   }
 
   isActiveHeroClass = (id) => {
-    if (this.state.activeHeroId === id) {
+    if (this.state.currentHeroId === id) {
       return 'active';
     }
     return '';
@@ -40,7 +42,10 @@ class App extends Component {
     return (
       <div className="App">
         {heroes.map((hero) =>
-          <Node key={hero.id} hero={hero} handleNodeClick={() => this.handleNodeClick(hero.id)} className={this.isActiveHeroClass(hero.id)}/>
+          <Hero 
+            key={hero.id} 
+            hero={hero} 
+            handleHeroClick={() => this.handleHeroClick(hero.id)} className={this.isActiveHeroClass(hero.id)}/>
         )}
       </div>
     );

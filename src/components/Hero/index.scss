@@ -1,0 +1,13 @@
+.Hero {
+  margin: 0 15px;
+  
+  circle {
+    cursor: pointer;
+    fill: #E6E6FA;
+    transition: -webkit-transform 0.5s, fill 0.5s;
+
+    &:hover {
+      fill: steelblue;
+    }
+  }
+}

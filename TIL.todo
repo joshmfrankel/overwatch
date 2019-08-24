@@ -1,0 +1,14 @@
+Passing arguments to js functions without calling:
+  <Component handleClick={() => this.handleClick(5)}
+
+How do I add SASS to a React component?:
+ ☐ Install node-sass `npm install node-sass -S`
+ ☐ Change .css => .scss
+
+SVG:
+  ☐ g - group of elements
+  ☐ text - displayed text
+    ☐ use textAnchor="middle" to align to middle
+  ☐ Background-color => fill
+
+https://stackoverflow.com/questions/14255631/style-svg-circle-with-css/14258103
