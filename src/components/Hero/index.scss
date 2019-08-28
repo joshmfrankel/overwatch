@@ -1,6 +1,6 @@
 .Hero {
   margin: 0 15px;
-  
+
   circle {
     cursor: pointer;
     fill: #E6E6FA;
@@ -8,6 +8,18 @@
 
     &:hover {
       fill: steelblue;
+    }
+  }
+
+  &--active {
+    circle {
+      fill: lightblue;
+    }
+  }
+
+  &--isCounter {
+    circle {
+      fill: red;
     }
   }
 }

@@ -3,10 +3,14 @@ import './index.scss';
 
 class Hero extends Component {
   render() {
-    const { hero } = this.props;
+    const { hero, isCounter } = this.props;
     const circleRadius = 50;
     return (
-      <svg className={`Hero ${this.props.className}`} width={circleRadius * 2} height={circleRadius * 2}>
+      <svg
+        className={this.props.className}
+        width={circleRadius * 2}
+        height={circleRadius * 2}
+      >
         <g transform={`translate(${circleRadius}, ${circleRadius})`} onClick={this.props.handleHeroClick}>
         	<circle r={circleRadius}></circle>
           <text textAnchor="middle" alignmentBaseline="central">{hero.name}</text>
