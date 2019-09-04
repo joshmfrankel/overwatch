@@ -1,14 +1,20 @@
 .Hero {
   margin: 0 15px;
 
+  text,
   circle {
     cursor: pointer;
-    fill: #E6E6FA;
-    transition: -webkit-transform 0.5s, fill 0.5s;
+  }
 
-    &:hover {
+  g:hover {
+    circle {
       fill: steelblue;
     }
+  }
+
+  circle {
+    fill: #E6E6FA;
+    transition: -webkit-transform 0.5s, fill 0.5s;
   }
 
   &--active {
@@ -20,6 +26,12 @@
   &--isCounter {
     circle {
       fill: red;
+    }
+  }
+
+  &--isCounteredBy {
+    circle {
+      fill: lightgreen;
     }
   }
 }

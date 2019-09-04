@@ -13,7 +13,7 @@ class Hero extends Component {
       >
         <g transform={`translate(${circleRadius}, ${circleRadius})`} onClick={this.props.handleHeroClick}>
         	<circle r={circleRadius}></circle>
-          <text textAnchor="middle" alignmentBaseline="central">{hero.name}</text>
+          <text textAnchor="middle" alignmentBaseline="central" className="Hero-text">{hero.name}</text>
         </g>
       </svg>
     );
