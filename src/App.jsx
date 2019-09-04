@@ -8,49 +8,51 @@ import './App.scss';
 // @todo
 // weapon + skill -> damage, rof, reload time
 // combos
-// @todo use name as the key!!!
 const heroes = [
   {
-    id: 1,
     name: 'Wrecking Ball',
     role: 'tank',
     health: 500,
     armor: 100,
     shield: 0,
-    counters: [3],
+    counters: ['Widowmaker'],
   },
   {
-    id: 2,
     name: 'Sombra',
     role: 'damage',
     health: 200,
     armor: 0,
     shield: 0,
-    counters: [1, 5],
+    counters: ['Wrecking Ball', 'Doomfist'],
   },
   {
-    id: 3,
     name: 'Widowmaker',
     role: 'damage',
     health: 200,
     armor: 0,
     shield: 0,
-    counters: [2],
+    counters: ['Sombra'],
   },
   {
-    id: 4,
     name: 'McCree',
     role: 'damage',
     health: 200,
     armor: 0,
     shield: 0,
-    counters: [2],
+    counters: ['Sombra'],
   },
   {
-    id: 5,
     name: 'Doomfist',
     role: 'damage',
     health: 250,
+    armor: 0,
+    shield: 0,
+    counters: [],
+  },
+  {
+    name: 'Ana',
+    role: 'support',
+    health: 200,
     armor: 0,
     shield: 0,
     counters: [],
@@ -61,19 +63,19 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentHeroId: null,
+      currentHeroName: null,
       currentHeroCounters: null,
     }
   }
 
-  handleHeroClick = (id) => {
-    let { counters } = find(heroes, { id });
+  handleHeroClick = (name) => {
+    let { counters } = find(heroes, { name });
 
     // Remove active Hero by re-clicking hero
-    if (this.state.currentHeroId === id) {
+    if (this.state.currentHeroName === name) {
       return this.resetCurrentHero();
     }
-    this.setState({ currentHeroId: id, currentHeroCounters: counters });
+    this.setState({ currentHeroName: name, currentHeroCounters: counters });
   }
 
   /**
@@ -82,52 +84,51 @@ class App extends Component {
    * @return     {Void}
    */
   resetCurrentHero = () => {
-    this.setState({ currentHeroId: null, currentHeroCounters: null });
+    this.setState({ currentHeroName: null, currentHeroCounters: null });
   }
 
-  heroClassName = (id) => {
+  heroClassName = (name) => {
     return classNames('Hero',
-      { 'Hero--active': this.isCurrentlyActiveHero(id) },
-      { 'Hero--isCounteredBy': this.isCounteredByActiveHero(id) },
-      { 'Hero--isCounter': this.isCounterForActiveHero(id) },
+      { 'Hero--active': this.isCurrentlyActiveHero(name) },
+      { 'Hero--isCounteredBy': this.isCounteredByActiveHero(name) },
+      { 'Hero--isCounter': this.isCounterForActiveHero(name) },
     );
   }
 
   hasActiveHero = () => {
-    return this.state.currentHeroId !== null;
+    return this.state.currentHeroName !== null;
   }
 
-  isCurrentlyActiveHero = (id) => {
-    return this.state.currentHeroId === id;
+  isCurrentlyActiveHero = (name) => {
+    return this.state.currentHeroName === name;
   }
 
-  isCounteredByActiveHero = (counterId) => {
-    return includes(this.state.currentHeroCounters, counterId);
+  isCounteredByActiveHero = (counterName) => {
+    return includes(this.state.currentHeroCounters, counterName);
   }
 
   /**
-   * Using the current counterId iterator id, find their
+   * Using the current counterName iterator, find their
    * array of counters to determine if one of their counters
    * is the currently active hero. This way we only need to track
    * a list of counters for each hero instead of counters and counteredBy.
    *
-   * @param      {Integer}   counterId  The counter identifier
-   * @return     {boolean}  True if counter for active hero, False otherwise.
+   * @param      {String}   counterName  The counter identifier
+   * @return     {Boolean}  True if counter for active hero, False otherwise.
    */
-  isCounterForActiveHero = (counterId) => {
-    let { counters } = find(heroes, { id: counterId });
+  isCounterForActiveHero = (counterName) => {
+    let { counters } = find(heroes, { name: counterName });
     if (this.hasActiveHero() && counters !== undefined) {
-      return includes(counters, this.state.currentHeroId);
+      return includes(counters, this.state.currentHeroName);
     }
     return false;
   }
 
   getCurrentHero = () => {
     if (this.hasActiveHero()) {
-      return find(heroes, { id: this.state.currentHeroId });
+      return find(heroes, { name: this.state.currentHeroName });
     }
     return {
-      id: null,
       name: "No Selection"
     }
   }
@@ -138,7 +139,7 @@ class App extends Component {
     }
 
     return heroes.filter((hero) => {
-      return this.isCurrentlyActiveHero(hero.id) || this.isCounteredByActiveHero(hero.id) || this.isCounterForActiveHero(hero.id);
+      return this.isCurrentlyActiveHero(hero.name) || this.isCounteredByActiveHero(hero.name) || this.isCounterForActiveHero(hero.name);
     })
   }
 
@@ -154,10 +155,10 @@ class App extends Component {
           <div className="FlexboxContainer-mainColumn">
             {this.heroCollection().map((hero) =>
               <Hero
-                key={hero.id}
+                key={hero.name}
                 hero={hero}
-                handleHeroClick={() => this.handleHeroClick(hero.id)}
-                className={this.heroClassName(hero.id)}
+                handleHeroClick={() => this.handleHeroClick(hero.name)}
+                className={this.heroClassName(hero.name)}
               />
             )}
           </div>
