@@ -13,3 +13,21 @@ SVG:
 
 https://stackoverflow.com/questions/14255631/style-svg-circle-with-css/14258103
 http://output.jsbin.com/sozewiso/2
+
+Appending to React state arrays:
+  ☐ Use #concat
+
+Specific state settings:
+  ☐ Use anonymous function
+  this.setState(state => {
+    return { key: value };
+  })
+
+Deploy Heroku node app:
+  ☐ https://dev.to/smithmanny/deploy-your-react-app-to-heroku-2b6f
+
+Local .env file for EnvVars in React:
+  ☐ .env.local file
+  ☐ Add to gitignore
+  ☐ Must prefix all EnvVar with REACT_APP_
+  ☐ Must restart server every change

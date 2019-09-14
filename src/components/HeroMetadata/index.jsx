@@ -4,7 +4,7 @@ import './index.scss';
 
 class HeroMetadata extends Component {
   render() {
-    const { name, health, armor, shield } = this.props.hero;
+    const { name, health, armor, shield, role } = this.props.hero;
     const heroImageSrc = `./images/${changeCase.snakeCase(name)}.png`;
 
     return (
@@ -12,15 +12,15 @@ class HeroMetadata extends Component {
         <h2>{name}</h2>
         <img src={heroImageSrc} width="180" height="auto"/>
         {name !== 'No Selection' &&
-          <button className="HeroMetadata-reset" onClick={this.props.handleReset}>Reset Selection</button>
-
-        }
-        {name !== 'No Selection' &&
-          <ul className="HeroMetadata-stats">
-            <li>Health: { health }</li>
-            <li>Armor: { armor }</li>
-            <li>Shield: { shield }</li>
-          </ul>
+          <>
+            <button className="HeroMetadata-reset" onClick={this.props.handleReset}>Reset Selection</button>
+            <h3>{ role }</h3>
+            <ul className="HeroMetadata-stats">
+              <li>Health: { health }</li>
+              <li>Armor: { armor }</li>
+              <li>Shield: { shield }</li>
+            </ul>
+          </>
         }
       </div>
     );

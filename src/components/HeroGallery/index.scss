@@ -7,11 +7,20 @@ button {
   cursor: pointer;
 }
 
+#root {
+  height: 100%;
+}
+
 .FlexboxContainer {
   display: flex;
+  height: 100%;
 
   &--row {
     flex-direction: row;
+
+    @media screen and (max-width: 500px) {
+      flex-direction: column;
+    }
   }
 
   &-mainColumn {
