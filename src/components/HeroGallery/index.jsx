@@ -20,13 +20,10 @@ class HeroGallery extends Component {
     super(props);
     this.state = {
       heroes: [],
+      combos: [],
       loading: true,
       currentHero: undefined,
 
-      currentHeroName: null,
-      currentHeroCounters: null,
-      currentHeroCounteredBy: null,
-      currentHeroId: null,
       currentHeroCombos: null,
     }
   }
@@ -35,6 +32,7 @@ class HeroGallery extends Component {
     let heroes = [];
     this.airtableBase = new Airtable({ apiKey: airTableApiKey }).base(airTableBaseKey);
 
+    // Load Heroes
     this.airtableBase("Heroes").select({ view: "Grid view" }).firstPage((error, records) => {
       records.forEach(record => {
         let currentRecordFields = record.fields;
@@ -42,7 +40,19 @@ class HeroGallery extends Component {
         heroes.push(currentRecordFields);
       });
 
-      this.setState({ loading: false, heroes });
+      // Load Combos
+      let combos = [];
+      this.airtableBase("Combos").select({ view: "Grid view" }).eachPage((records, fetchNextPage) => {
+        records.forEach(record => {
+          let currentComboRecord = record.fields;
+          currentComboRecord['id'] = record.id;
+          combos.push(currentComboRecord);
+        });
+
+        fetchNextPage();
+      });
+
+      this.setState({ heroes, combos, loading: false });
     });
   }
 
@@ -62,17 +72,14 @@ class HeroGallery extends Component {
         return includes(currentHero.counters, hero.id);
       });
 
+      let combos = filter(this.state.combos, (combo) => {
+        return includes(currentHero.combos, combo.id);
+      });
+
       currentHero.counteredBy = counteredBy;
       currentHero.counters = counters;
+      currentHero.combos = combos;
       this.setState({ currentHero });
-
-      // @todo Request to Airtable for given Heroes:
-      // 2. Weapon & Skill stats
-      // this.airtableBase("Combos").select({ view: "Grid view" }).eachPage((records, fetchNextPage) => {
-      //   let combos = filter(records, (record) => includes(record.fields.HeroReference, id)).map(record => record.fields);
-
-      //   this.setState({ currentHeroName: name, currentHeroCounters: counters, currentHeroCounteredBy, currentHeroId: id, currentHeroCombos: combos, loading: false });
-      // });
     });
   }
 
@@ -146,16 +153,16 @@ class HeroGallery extends Component {
               </div>
             )}
 
-            {!this.state.loading && this.hasActiveHero() && this.state.currentHeroCombos && (
+            {!this.state.loading && this.hasActiveHero() && this.state.currentHero.combos && (
               <>
                 <h2>Combos</h2>
-                {this.state.currentHeroCombos.map((combo) =>
+                {this.state.currentHero.combos.map((combo) =>
                   <div className="HeroGallery-combos">
                     <h4>{ combo.name }</h4>
                     <p>{ combo.description }</p>
                     <p>Range: { combo.range }</p>
                     <p>Breakdown: { combo.breakdown }</p>
-                    <p>Burst Damage: { combo.burstDamage }</p>
+                    <p>Total Damage: { combo.totalDamage }</p>
                   </div>
                 )}
               </>

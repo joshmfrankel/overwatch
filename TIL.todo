@@ -45,3 +45,6 @@ Configure SublimeLinter-rubocop on asdf:
 
 React TransitionGroup no top level div:
   ☐ Pass `component={null}` into the component as a prop
+
+Converting property names to lowercase:
+  ☐ Object.keys(record.fields).reduce((key, value) => (key[value.toLowerCase()] = record.fields[value], key), {})
