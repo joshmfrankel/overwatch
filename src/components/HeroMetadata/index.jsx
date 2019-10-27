@@ -9,7 +9,7 @@ class HeroMetadata extends Component {
 
     return (
       <div className="HeroMetadata">
-        <h2>{name}</h2>
+        <h1>{name}</h1>
         <img src={heroImageSrc} width="180" height="auto"/>
         {name !== 'No Selection' &&
           <>

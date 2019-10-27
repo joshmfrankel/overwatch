@@ -1,15 +1,8 @@
 .Hero {
-  margin: 0 15px;
+  margin: 10px;
 
-  text,
-  circle {
+  image {
     cursor: pointer;
-  }
-
-  g:hover {
-    circle {
-      fill: steelblue;
-    }
   }
 
   circle {
@@ -17,21 +10,27 @@
     transition: -webkit-transform 0.5s, fill 0.5s;
   }
 
-  &--active {
-    circle {
-      fill: lightblue;
-    }
-  }
+  // g:hover {
+  //   circle {
+  //     fill: steelblue;
+  //   }
+  // }
 
-  &--isCounter {
-    circle {
-      fill: red;
-    }
-  }
+  // &--active {
+  //   circle {
+  //     fill: lightblue;
+  //   }
+  // }
 
-  &--isCounteredBy {
-    circle {
-      fill: lightgreen;
-    }
-  }
+  // &--isCounter {
+  //   circle {
+  //     fill: red;
+  //   }
+  // }
+
+  // &--isCounteredBy {
+  //   circle {
+  //     fill: lightgreen;
+  //   }
+  // }
 }

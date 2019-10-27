@@ -15,3 +15,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+@font-face {
+  font-family: 'Big Noodle';
+  src: local('Big Noodle'), url(./assets/fonts/big_noodle_titling.ttf) format('truetype');
+}
+
+$gray: #4b535d;
+
+h1, h2 {
+  color: $gray;
+  font-family: 'Big Noodle';
+}

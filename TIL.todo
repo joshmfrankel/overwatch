@@ -31,3 +31,17 @@ Local .env file for EnvVars in React:
   ☐ Add to gitignore
   ☐ Must prefix all EnvVar with REACT_APP_
   ☐ Must restart server every change
+  ☐ https://stackoverflow.com/questions/49579028/adding-an-env-file-to-react-project
+  ☐ process.env to access vars
+
+Configure SublimeLinter-rubocop on asdf:
+  ☐ Set default .tool-versions ruby version
+  ☐ Reshim ruby
+  ☐ Ensure rubocop installed in gem list
+  ☐ Add configuration
+    "paths": {
+      "osx": ["/Users/joshuafrankel/.asdf/shims"]
+    },
+
+React TransitionGroup no top level div:
+  ☐ Pass `component={null}` into the component as a prop

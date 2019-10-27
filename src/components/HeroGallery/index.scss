@@ -11,6 +11,27 @@ button {
   height: 100%;
 }
 
+.u-margin-20-30 {
+  margin: 20px 30px;
+}
+
+.HeroGallery {
+  &-header {
+    &-title {
+      font-style: italic;
+      text-align: center;
+    }
+  }
+
+  &-counters,
+  &-counteredBy,
+  &-combos {
+    p {
+      display: inline-block;
+    }
+  }
+}
+
 .FlexboxContainer {
   display: flex;
   height: 100%;
@@ -23,22 +44,26 @@ button {
     }
   }
 
-  &-mainColumn {
-    flex-grow: 1;
+  &--column {
+    flex-direction: column;
   }
 
-  &-sideColumn {
-    flex-basis: 250px;
-    background: #efefef;
-    text-align: center;
+  &-mainColumn {
   }
 }
 
-.HeroCollection {
-  &-filters {
-    button {
-      margin: 0 10px;
-      padding: 30px;
-    }
-  }
+.Sidebar {
+  background: #f0edf2;
+  text-align: center;
+  width: 0;
+  transition: width 300ms ease;
+  overflow: hidden;
+}
+
+.Sidebar--active {
+  width: 300px;
+}
+
+.Loader {
+  text-align: center;
 }
