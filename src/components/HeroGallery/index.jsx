@@ -3,7 +3,7 @@ import Hero from '../Hero';
 import HeroMetadata from '../HeroMetadata';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from 'react-loader-spinner';
-import { find, includes, filter } from 'lodash';
+import { find, includes, filter, clone } from 'lodash';
 import classNames from 'classnames';
 import Airtable from 'airtable';
 import './index.scss';
@@ -57,30 +57,33 @@ class HeroGallery extends Component {
   }
 
   handleHeroClick = (id) => {
-    this.setState({ loading: false }, () => {
-      let currentHero = find(this.state.heroes, { id });
+    // Ensure object is cloned once found to prevent overwriting the existing
+    // counters data.
+    let currentHero = clone(find(this.state.heroes, { id }));
 
-      // Given the current list of heroes
-      // filter out heroes where their array of counters
-      // doesn't include the currently selected hero
-      // Then map the result into a collection of names
-      let counteredBy = filter(this.state.heroes, (hero) => {
-        return includes(hero.counters, id);
-      });
-
-      let counters = filter(this.state.heroes, (hero) => {
-        return includes(currentHero.counters, hero.id);
-      });
-
-      let combos = filter(this.state.combos, (combo) => {
-        return includes(currentHero.combos, combo.id);
-      });
-
-      currentHero.counteredBy = counteredBy;
-      currentHero.counters = counters;
-      currentHero.combos = combos;
-      this.setState({ currentHero });
+    // Given the current list of heroes
+    // filter out heroes where their array of counters
+    // doesn't include the currently selected hero
+    // Then map the result into a collection of names
+    let counteredBy = filter(this.state.heroes, (hero) => {
+      return includes(hero.counters, id);
     });
+
+    let counters = filter(this.state.heroes, (hero) => {
+      return includes(currentHero.counters, hero.id);
+    });
+
+    // Relationally map the current foreign keys of currentHero.combos
+    // to any matching combos id in the Combos table
+    let combos = filter(this.state.combos, (combo) => {
+      return includes(currentHero.combos, combo.id);
+    });
+
+    currentHero.counteredBy = counteredBy;
+    currentHero.counters = counters;
+    currentHero.combos = combos;
+
+    this.setState({ currentHero });
   }
 
   /**
@@ -113,7 +116,7 @@ class HeroGallery extends Component {
 
           <div className="FlexboxContainer-mainColumn u-margin-20-30">
             {!this.state.loading && !this.hasActiveHero() && (
-              <>
+              <div className="HeroGallery-list">
                 <div className="HeroGallery-header">
                   <h1 className="HeroGallery-header-title">Choose Your Hero</h1>
                 </div>
@@ -124,7 +127,7 @@ class HeroGallery extends Component {
                     handleHeroClick={() => this.handleHeroClick(hero.id)}
                   />
                 )}
-              </>
+              </div>
             )}
 
             {!this.state.loading && this.hasActiveHero() && this.state.currentHero.counters && (

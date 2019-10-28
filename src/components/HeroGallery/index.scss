@@ -32,6 +32,7 @@ button {
   }
 }
 
+$mobileWidth: 500px;
 .FlexboxContainer {
   display: flex;
   height: 100%;
@@ -39,7 +40,7 @@ button {
   &--row {
     flex-direction: row;
 
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: $mobileWidth) {
       flex-direction: column;
     }
   }
@@ -52,16 +53,28 @@ button {
   }
 }
 
+.HeroGallery {
+  &-list {
+    text-align: center;
+  }
+}
+
 .Sidebar {
   background: #f0edf2;
   text-align: center;
   width: 0;
   transition: width 300ms ease;
   overflow: hidden;
-}
 
-.Sidebar--active {
-  width: 300px;
+  &--active {
+    width: 300px;
+
+    @media screen and (max-width: $mobileWidth) {
+      width: 100%;
+      overflow: visible;
+      padding-bottom: 30px;
+    }
+  }
 }
 
 .Loader {
