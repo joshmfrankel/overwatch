@@ -1,3 +1,19 @@
+## Overwatch Hero Gallery
+
+I build this in order to learn several concepts related to React development (also
+because Overwatch is awesome):
+
+* SVG background color for PNG images with clipping path and link (used for the hero circles)
+* Single page app within React ecosystem
+* Environment variables within a React application
+* AirTable database architecture with relational joins between records
+
+You can see the finished product here: [http://overwatch-hero-gallery.herokuapp.com/](http://overwatch-hero-gallery.herokuapp.com/) though you may need to wait on the free heroku dyno to spin up. Otherwise here's a GIF demo:
+
+![Demo Overwatch Hero Gallery](https://github.com/joshmfrankel/overwatch/blob/master/demo.gif)
+
+## React starter app boilerplate
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
